@@ -7,7 +7,7 @@ import Register from './Register'
 //导入antd表单
 
 
-export default class Login extends Component {
+export default class LoginRegistor extends Component {
 	constructor() {
 		super()
 		this.state = {

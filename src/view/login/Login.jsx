@@ -1,10 +1,11 @@
-import React,{Component} from 'react'
-import { Form, Input, Button, Checkbox } from 'antd';
+import React,{Component,Fragment} from 'react'
+import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Row, Col, Divider } from 'antd';
+import { Row, Col } from 'antd';
 import {login} from "../../api/login"
+import "./index.scss";
 
-export default class Login extends Components {
+export default class Login extends Component {
   constructor(){
     super()
     this.state={}
@@ -18,14 +19,14 @@ export default class Login extends Components {
     console.log('Received values of form: ', values);
   };
   goToRegister=() => {
-    this.props.loginType("login")
+    this.props.loginType("register")
     console.log(11111)
   }
   render(){
     return (
-        <Fragment >
+        <div className="form-content">
           <div className="form-header">
-            <h4 className="column">登录</h4>
+            <h4 className="column">登录表单</h4>
             <span onClick={this.goToRegister}>账号注册</span>
           </div>
           <Form
@@ -55,8 +56,8 @@ export default class Login extends Components {
                     message: '请输入密码!',
                   },
                   {min:6,message:"不能小于6位"},
-                  {max:16,message:"不能大于16位"},
-                  {pattern:/^[0-9]*$/,message:"请输入数字"}
+                  {max:16,message:"不能大于16位"}
+                  // {pattern:/^[0-9]*$/,message:"请输入数字"}
                 ]}
             >
               <Input
@@ -82,7 +83,7 @@ export default class Login extends Components {
               <Button type="primary" htmlType="submit" className="login-form-button" block>登录</Button>
             </Form.Item>
           </Form>
-        </Fragment>
+        </div>
     )
   }
 }
