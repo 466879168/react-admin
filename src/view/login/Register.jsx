@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
@@ -18,7 +18,6 @@ export default class Login extends Component {
   };
   goToLogin = () => {
     this.props.registerType("login");
-    console.log(11111);
   };
   render() {
     return (

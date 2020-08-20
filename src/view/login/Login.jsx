@@ -1,8 +1,8 @@
-import React,{Component,Fragment} from 'react'
+import React,{Component} from 'react'
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
-import { message, Space } from 'antd';
+import { message } from 'antd';
 import {login,GetCode} from "../../api/login"
 import "./index.scss";
 
@@ -34,8 +34,15 @@ export default class Login extends Component {
       username:this.state.username,
       module:"login"
     }
-    GetCode().then(response=>{
+    this.setState({
+      codeBtnLoading:true,
+      btnText:"发送中"
+    })
+    GetCode(params).then(response=>{
       console.log(response)
+      this.setState({
+        codeBtnLoading:false
+      })
     }).catch(error=>{
       console.log(error)
       this.setState({
@@ -48,16 +55,13 @@ export default class Login extends Component {
     this.props.loginType("register")
     console.log(11111)
   }
-
-  /**
-   *
-   */
-  inputChange(e){
+  inputChange=(e)=>{
+    e.persist()
+    console.log(e);
     let value=e.target.value
     this.setState({
       username:value
     })
-    console.log(e)
   }
   render(){
     return (
@@ -112,7 +116,7 @@ export default class Login extends Component {
                   />
                 </Col>
                 <Col className="gutter-row" span={9}>
-                  <Button disabled={this.state.codeBtnDisabled} loading={codeBtnLoading} type="danger"  className="login-form-button">{this.state.btnText}</Button>
+                  <Button onClick={this.getCode}  loading={this.state.codeBtnLoading} type="danger"  className="login-form-button">{this.state.btnText}</Button>
                 </Col>
               </Row>
             </Form.Item>
