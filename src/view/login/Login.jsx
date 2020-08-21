@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
 import { message } from 'antd';
 import {login,GetCode} from "../../api/login"
-import "./index.scss";
+import "./index.css";
 
 export default class Login extends Component {
   constructor(){
@@ -13,7 +13,7 @@ export default class Login extends Component {
       username:"",
       codeBtnDisabled:true,
       codeBtnLoading:false,
-      btnText:"获取验证码"
+      btnText:"获取验证码",
     }
   }
   onFinish = values => {
@@ -43,6 +43,7 @@ export default class Login extends Component {
       this.setState({
         codeBtnLoading:false
       })
+      this.countDown()
     }).catch(error=>{
       console.log(error)
       this.setState({
@@ -50,6 +51,30 @@ export default class Login extends Component {
         btnText:"重新获取"
       })
     })
+  }
+  /**
+   * 倒计时
+   */
+  countDown=()=>{
+    let timer=null
+
+    let sec=60
+    this.setState({
+      codeBtnDisabled:true,
+      codeBtnLoading:false,
+      btnText:`${sec}S`
+    })
+    timer=setInterval(()=>{
+      sec--;
+      if (sec <=0){
+        this.setState({
+          btnText:"重新获取",
+          codeBtnDisabled:false
+        })
+        clearInterval(timer)
+        return
+      }
+    },1000)
   }
   goToRegister=() => {
     this.props.loginType("register")
@@ -116,7 +141,7 @@ export default class Login extends Component {
                   />
                 </Col>
                 <Col className="gutter-row" span={9}>
-                  <Button onClick={this.getCode}  loading={this.state.codeBtnLoading} type="danger"  className="login-form-button">{this.state.btnText}</Button>
+                  <Button disabled={this.state.codeBtnDisabled} onClick={this.getCode}  loading={this.state.codeBtnLoading} type="danger"  className="login-form-button">{this.state.btnText}</Button>
                 </Col>
               </Row>
             </Form.Item>

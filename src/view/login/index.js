@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./index.scss"
+import "./index.css"
 //登录组件
 import Login from './Login'
 //注册组件

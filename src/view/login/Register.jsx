@@ -3,7 +3,7 @@ import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
 import { login } from "../../api/login";
-import "./index.scss";
+import "./index.css";
 
 export default class Login extends Component {
   constructor() {
@@ -39,13 +39,13 @@ export default class Login extends Component {
             rules={[
               {
                 required: true,
-                message: "请输入用户名!",
+                message: "邮箱不能为空!",
               },
             ]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="用户名"
+              placeholder="邮箱"
             />
           </Form.Item>
           <Form.Item
