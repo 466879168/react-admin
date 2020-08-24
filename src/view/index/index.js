@@ -1,25 +1,51 @@
-import React,{Component} from "react";
+import React from 'react';
 import {Layout} from 'antd'
-const {Sider,Header,Main}=Layout
+import './index.css'
+import Aside from "./components/aside.js"
+import TopHeader from './components/topHeader'
+import ContainerMain from '../../components/container/index'
 
 
-class Index extends Component{
-	constructor(props){
+const {Header,Sider,Content} =Layout
+
+
+
+
+
+class Index extends React.Component{
+	constructor(props) {
 		super(props)
 		this.state={
-
+			collapsed:true
 		}
 	}
 
-	render(){
+	componentDidMount() {
+		const collapsed=JSON.parse(sessionStroage.getItem("collapsed"))
+		this.setState({collapsed})
+	}
+
+	toggleCollapsed=()=>{
+		const collapsed=!this.state.collapsed
+		this.setState({
+			collapsed:!this.state.collapsed
+		})
+		sessionStorage.setItem('collapsed',collapsed)
+	}
+
+	render() {
 		return (
-				<Layout>
-					<Sider>
-						6456456464654645645645645645646
+				<Layout className="layout-wrap">
+					<Sider collapsed={this.state.collapsed} width="250px">
+						<Aside />
 					</Sider>
 					<Layout>
-						<Header>头部</Header>
-						<Content>内容</Content>
+						<Header className="layout-header">
+							<TopHeader toggle={this.toggleCollapsed} collapsed={this.state.collapsed} />
+						</Header>
+						<Content className="layout-content">
+							<ContainerMain />
+						</Content>
 					</Layout>
 				</Layout>
 		)

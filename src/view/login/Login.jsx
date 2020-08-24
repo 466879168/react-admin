@@ -4,9 +4,11 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
 import { message } from 'antd';
 import {login,GetCode} from "../../api/login"
+import {withRouter} from 'react-router-dom'
 import "./index.css";
+import {setToken} from '../../utils/session'
 
-export default class Login extends Component {
+ class Login extends Component {
   constructor(){
     super()
     this.state={
@@ -19,7 +21,12 @@ export default class Login extends Component {
   onFinish = values => {
     console.log(values)
     login().then(response=>{
-
+      this.setState({
+        loading:false
+      })
+      setToken("admin")
+      //路由跳转
+    this.props.history.push('/')
     }).catch(error=>{
 
     })
@@ -153,3 +160,6 @@ export default class Login extends Component {
     )
   }
 }
+
+
+export default withRouter(Login)
